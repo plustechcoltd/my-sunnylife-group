@@ -1,0 +1,36 @@
+if [ -f ./vendor/bin/php-cs-fixer ]
+then
+    RED='\033[0;31m'
+    YELLOW='\e[93m'
+    CYAN='\033[0;36m'
+    NA='\033[0m'
+
+    ## PHPCS check
+
+    docker exec customer_portal_php-fpm ./vendor/bin/php-cs-fixer fix --dry-run --quiet
+    if [ $? -ne 0 ]
+    then
+        printf "${CYAN}STANDARDIZING THE CODE${NA}\n"
+        docker exec -u root customer_portal_php-fpm ./vendor/bin/php-cs-fixer fix --verbose --show-progress=dots --diff
+
+        printf "\n${CYAN}[GIT POLICY]${NA} PHP-CS-Fixer has failed - ${RED}Push Aborted${NA}"
+        printf "\n${CYAN}[HINT]${NA}       Manually we can check & fix our code by running ${CYAN}ws check-code${NA}"
+        printf "\n${YELLOW}[WARNING]${NA}    You code have been fixed, ${YELLOW}please commit before pushing it again${NA}!!!\n\n"
+
+        return 1
+    else
+        printf "${YELLOW}[PHP-CS PASSED!]${NA}\n\n"
+
+        ## PHP-UNIT check
+
+        ws test-unit
+        if [ $? -ne 0 ]
+        then
+            printf "${CYAN}[GIT POLICY]${NA} PHP-Unit has failed - ${RED}Push Aborted${NA}\n\n"
+
+            return 2
+        else
+            printf "${YELLOW}[PHP-UNIT PASSED!]${NA}\n\n"
+        fi
+    fi
+fi

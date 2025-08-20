@@ -1,0 +1,89 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Custom CSS
+ *
+ *  Place here all your custom CSS
+ *
+ * ---------------------------------------------------------------------------- */
+
+.mw-300 {
+    max-width: 300px;
+}
+
+.chat-truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.day-message-group {
+    position: relative;
+}
+
+.date-separator {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    text-align: center;
+    color: #888;
+    padding: 10px;
+    z-index: 10;
+}
+
+.bg-size-100 {
+    background-size: 100% 100% !important;
+}
+
+.list-room {
+    max-height: 43.5em;
+    overflow: auto;
+}
+
+.page-content .list-room, .page-content .media-chat-scrollable {
+    height: 32.5rem;
+    scrollbar-width: thin;
+}
+
+.page-content .media-chat .media-chat-item-reverse {
+    margin-right: 0.5em;
+}
+
+@media (min-width: 576px) {
+    .media-chat-message {
+        max-width: 75%;
+    }
+}
+
+.nav .chat-badge {
+    -webkit-font-smoothing: antialiased;
+}
+
+.font-10em {
+    font-size: 10em;
+}
+
+.transform-scale-x {
+    transform: scaleX(-1);
+}
+
+.mw-90 {
+    max-width: 90%;
+}
+
+.min-h-40px {
+    min-height: 40px;
+}
+
+/* Style for the textarea */
+.chat-input {
+    height: auto;
+    max-height: 120px; /* Max height (4 lines) */
+    resize: none;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    outline: none;
+    overflow-y: auto;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}

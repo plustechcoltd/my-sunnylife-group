@@ -1,0 +1,121 @@
+workspace('customer_portal-ws'):
+  description: local workspace for customer_portal.
+
+command('setup'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker-compose up --build --detach
+
+    printf "\nBackend component setup...\n"
+    docker exec -u 1000 customer_portal_php-fpm composer install
+
+    printf "\nFrontend building...\n"
+    run ws fe build
+
+    printf "\nRestart everything...\n"
+    run ws restart
+
+    printf "\nEverything is done!\n"
+    printf "URL: http://localhost:8666/\n"
+
+command('start'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker-compose start nginx
+    docker-compose start php-fpm
+    docker-compose start database
+    docker-compose start phpmyadmin
+    docker-compose start redis
+    docker-compose start mailhog
+
+    printf "\nStart updating packages...\n"
+    run ws update
+    printf "\nStart clearing cache...\n"
+    run ws cache:clear
+    printf "Running migrations...\n"
+    run ws migration
+    printf "Building frontend...\n"
+    run ws fe build
+    printf "...done.\n\n"
+
+command('stop'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker-compose stop nginx
+    docker-compose stop php-fpm
+    docker-compose stop database
+    docker-compose stop phpmyadmin
+    docker-compose stop redis
+    docker-compose stop mailhog
+
+command('destroy'):
+  exec: |
+    #!bash(workspace:/)|@
+    run ws stop
+    docker-compose rm -f nginx
+    docker-compose rm -f php-fpm
+    docker-compose rm -f database
+    docker-compose rm -f phpmyadmin
+    docker-compose rm -f redis
+    docker-compose rm -f mailhog
+    docker-compose down -v
+
+command('restart'):
+  exec: |
+    #!bash(workspace:/)|@
+    run ws stop
+    run ws start
+
+command('console'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec -it customer_portal_php-fpm bash
+
+command('redis'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec -it customer_portal_redis redis-cli
+
+command('update'):
+  exec: |
+    #!bash(workspace:/)|=
+    docker exec customer_portal_php-fpm composer install
+
+command('migration'):
+  exec: |
+    #!bash(workspace:/)|=
+    docker exec customer_portal_php-fpm php artisan migrate
+
+command('cache:clear'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec customer_portal_php-fpm php artisan cache:clear
+
+command('fe build'):
+  exec: |
+    #!bash(workspace:/)|=
+    docker exec customer_portal_php-fpm php artisan view:clear
+    docker exec customer_portal_php-fpm php artisan route:clear
+    docker exec customer_portal_php-fpm npm install
+    docker exec customer_portal_php-fpm npm run build
+
+command('fe watch'):
+  exec: |
+    #!bash(workspace:/)|=
+    docker exec customer_portal_php-fpm npm install
+    docker exec customer_portal_php-fpm npm run dev
+
+command('test'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec customer_portal_php-fpm composer test
+
+command('test-unit'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec customer_portal_php-fpm composer test-unit
+
+command('test-cs'):
+  exec: |
+    #!bash(workspace:/)|@
+    docker exec customer_portal_php-fpm composer test-cs

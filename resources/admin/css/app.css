@@ -1,0 +1,79 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Custom CSS
+ *
+ *  Place here all your custom CSS
+ *
+ * ---------------------------------------------------------------------------- */
+.chat-container {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.media-chat-read-area {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    bottom: 0;
+    background: #ccc;
+    visibility: hidden;
+}
+
+.media-chat-scroll-icon {
+    position: sticky;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tokenfield {
+    min-height: 44px;
+}
+
+.tokenfield .token {
+    border: 0;
+    min-height: 32px;
+    margin-bottom: 7px;
+    font-size: var(--tf-input-font-size);
+    line-height: var(--tf-input-line-height);
+    padding: calc(var(--tf-input-padding-y) * .5) calc(var(--tf-input-padding-x) - var(--tf-input-padding-y) * .5);
+    color: var(--tf-tag-color);
+    background-color: var(--tf-tag-bg);
+    border-radius: calc(var(--tf-border-radius) - var(--tf-border-width));
+    transition: color ease-in-out var(--transition-base-timer), background-color ease-in-out var(--transition-base-timer);
+}
+
+.tokenfield .token .close {
+    color: inherit;
+}
+
+.tokenfield .token:hover {
+    color: var(--tf-tag-hover-color);
+    background-color: var(--tf-tag-hover-bg);
+    cursor: auto;
+}
+.notification-template .list-group-item {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.list-group-item.is-active {
+    background-color: #e5e7eb;
+}
