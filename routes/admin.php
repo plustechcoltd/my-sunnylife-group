@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DemoController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -114,8 +113,6 @@ Route::domain(config('app.admin_domain'))
                     Route::delete('/languages/{language}', [LanguageController::class, 'destroy'])->name('languages.destroy');
                 });
 
-                // Limitless Demo
-                Route::get('{any}', [DemoController::class, 'index'])->name('demo.index');
             });
 
             Route::get('/admins/{admin}/avatar', [AdminController::class, 'showAvatar'])->name('admins.show_avatar');

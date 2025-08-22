@@ -14,12 +14,24 @@ class LanguageController extends Controller
     protected DataTableService $dataTableService;
     protected ActivityLogService $activityLogService;
 
+    /**
+     * LanguageController constructor.
+     *
+     * @param DataTableService $dataTableService
+     * @param ActivityLogService $activityLogService
+     */
     public function __construct(DataTableService $dataTableService, ActivityLogService $activityLogService)
     {
         $this->dataTableService = $dataTableService;
         $this->activityLogService = $activityLogService;
     }
 
+    /**
+     * Display a listing of the languages.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -41,12 +53,23 @@ class LanguageController extends Controller
         return view('admin.languages.index');
     }
 
+    /**
+     * Show the form for creating a new language.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $language = new Language();
         return view('admin.languages.create', compact('language'));
     }
 
+    /**
+     * Store a newly created language in storage.
+     *
+     * @param LanguageRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(LanguageRequest $request)
     {
         $language = new Language();
@@ -67,11 +90,24 @@ class LanguageController extends Controller
         );
     }
 
+    /**
+     * Show the form for editing the specified language.
+     *
+     * @param Language $language
+     * @return \Illuminate\View\View
+     */
     public function edit(Language $language)
     {
         return view('admin.languages.edit', compact('language'));
     }
 
+    /**
+     * Update the specified language in storage.
+     *
+     * @param Language $language
+     * @param LanguageRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Language $language, LanguageRequest $request)
     {
         $language->fill($request->all());

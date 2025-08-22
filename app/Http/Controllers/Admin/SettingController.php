@@ -15,17 +15,33 @@ class SettingController extends Controller
 {
     protected ActivityLogService $activityLogService;
 
+    /**
+     * SettingController constructor.
+     *
+     * @param ActivityLogService $activityLogService
+     */
     public function __construct(ActivityLogService $activityLogService)
     {
         $this->activityLogService = $activityLogService;
     }
 
+    /**
+     * Display the settings page.
+     *
+     * @return View
+     */
     public function index(): View
     {
         $settings = Setting::get();
         return view('admin.settings.index', compact('settings'));
     }
 
+    /**
+     * Update the settings.
+     *
+     * @param SettingRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(SettingRequest $request)
     {
         $logoLoginPath = $this->handleFileUpdate('logo_login', $request);

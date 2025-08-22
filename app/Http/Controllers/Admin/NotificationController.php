@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
+    /**
+     * Get notifications for the authenticated admin.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(
         Request $request
     ): JsonResponse {
@@ -27,6 +33,12 @@ class NotificationController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Mark all notifications as read for the authenticated admin.
+     *
+     * @param NotificationService $notificationService
+     * @return JsonResponse
+     */
     public function markAllAsRead(
         NotificationService $notificationService
     ): JsonResponse {
@@ -35,6 +47,13 @@ class NotificationController extends Controller
         return response()->json();
     }
 
+    /**
+     * Mark a specific notification as read for the authenticated admin.
+     *
+     * @param Notification $notification
+     * @param NotificationService $notificationService
+     * @return JsonResponse
+     */
     public function markAsRead(
         Notification $notification,
         NotificationService $notificationService
