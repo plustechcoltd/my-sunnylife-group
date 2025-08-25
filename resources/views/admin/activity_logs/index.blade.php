@@ -4,6 +4,7 @@
 @endsection
 @section('page-header')
     @component('admin.components.page-header')
+        @slot('hide_title_breadcrumb')@endslot
         @slot('title')
             {{ __('label.tables.activity_logs') }} {{ __('label.labels.list') }}
         @endslot
