@@ -403,7 +403,7 @@ var DashboardBullets = function() {
             // Load data
             // ------------------------------
 
-            d3.json('assets/admin/demo/data/dashboard/bullets.json', function(error, data) {
+            d3.json('../../../assets/admin/demo/data/dashboard/bullets.json', function(error, data) {
 
                 // Show what's wrong if error
                 if (error) return console.error(error);

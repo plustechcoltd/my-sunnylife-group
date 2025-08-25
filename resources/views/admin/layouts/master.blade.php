@@ -16,17 +16,29 @@
 <!-- navbar -->
 @include('admin.layouts.navbar')
 
-@include('admin.layouts.navigation_menu')
-
-@yield('page-header')
-
 <!-- Page content -->
-<div class="page-content pt-0 {{ getContainerClass($settings) }}">
+<div class="page-content">
+
+    <!-- sidebar -->
+    @include('admin.layouts.sidebar')
 
     <!-- Main content -->
     <div class="content-wrapper">
 
-        @yield('content')
+        <!-- Inner content -->
+        <div class="content-inner">
+
+            <!-- page header -->
+            @yield('page-header')
+
+            <!-- content -->
+            @yield('content')
+
+            <!-- modals -->
+            @yield('modals')
+
+        </div>
+        <!-- /inner content -->
 
     </div>
     <!-- /main content -->
@@ -34,13 +46,13 @@
 </div>
 <!-- /page content -->
 
+{{--@include('admin.layouts.navigation_menu')--}}
+
 <!-- notification -->
 @include('admin.components.notification.notification-box')
 
 <!-- footer -->
-@if(!empty($settings['display_footer']) && $settings['display_footer'] != 'n')
-    @include('admin.layouts.footer')
-@endif
+@include('admin.layouts.footer')
 
 <!-- right-sidebar content -->
 @include('admin.layouts.right_sidebar')
