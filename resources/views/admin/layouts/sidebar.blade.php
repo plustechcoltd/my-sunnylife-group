@@ -33,14 +33,14 @@
                     </a>
                 </li>
 
-                @canany(['admin:locations','admin:location_groups', 'admin:cities', 'admin:city_groups'])
+                @canany(['admin:institutions','admin:location_groups', 'admin:cities', 'admin:city_groups'])
                     <li class="nav-item nav-item-submenu {{ request()->routeIs('admin.locations.*') || request()->routeIs('admin.location_groups.*') || request()->routeIs('admin.cities.*') || request()->routeIs('admin.city_groups.*') ? 'nav-item-open' : '' }}">
                         <a href="#" class="nav-link">
-                            <i class="{{ config('const.icons.locations') }}"></i>
+                            <i class="ph-buildings"></i>
                             <span>{{ __('label.menus.locations') }}</span>
                         </a>
                         <ul class="nav-group-sub collapse {{ request()->routeIs('admin.locations.*') || request()->routeIs('admin.location_groups.*') || request()->routeIs('admin.cities.*') || request()->routeIs('admin.city_groups.*') ? 'show' : '' }}">
-                            @can('admin:locations')
+                            @can('admin:institutions')
                                 <li class="nav-item">
                                     <a href="{{ route('admin.locations.index') }}" class="nav-link {{ request()->routeIs('admin.locations.*') ? 'active' : '' }}">
                                         <span>{{ __('label.menus.locations') }}</span>

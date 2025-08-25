@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Ajax\CityController;
+use App\Http\Controllers\Admin\Ajax\TrainLineController;
+use App\Http\Controllers\Admin\Ajax\TrainStationController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
@@ -40,7 +44,7 @@ Route::domain(config('app.admin_domain'))
                 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
                 // locations
-                Route::group(['middleware' => 'can:admin:locations'], function () {
+                Route::group(['middleware' => 'can:admin:institutions'], function () {
                     Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
                     Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
                     Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
@@ -157,4 +161,9 @@ Route::domain(config('app.admin_domain'))
 
             Route::get('/admins/{admin}/avatar', [AdminController::class, 'showAvatar'])->name('admins.show_avatar');
         });
+
+        // ajax
+        Route::get('/ajax/cities', [CityController::class, 'index'])->name('ajax.cities.index');
+        Route::get('/ajax/train_lines', [TrainLineController::class, 'index'])->name('ajax.train_lines.index');
+        Route::get('/ajax/train_stations', [TrainStationController::class, 'index'])->name('ajax.train_stations.index');
     });

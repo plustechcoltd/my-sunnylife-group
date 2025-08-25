@@ -46,18 +46,6 @@ return [
         'admin:users',
         'admin:activity_logs',
         'admin:institutions',
-        'admin:rooms',
-        'admin:plans',
-        'admin:campaign_plans',
-        'admin:trial_plans',
-        'admin:nurse_types',
-        'admin:room_types',
-        'admin:nursing_levels',
-        'admin:management_companies',
-        'admin:treatments',
-        'admin:medical_agencies',
-        'admin:medical_services',
-        'admin:day_services',
         'admin:files',
         'admin:banners',
         'admin:faqs',
@@ -122,5 +110,44 @@ return [
     'auth_tables' => [
         'admin' => 'admins',
         'user' => 'users',
+    ],
+
+    // 施設種別（施設形態）
+    'location_types' => [
+        '1' => '一般',
+        '2' => '療養型',
+        '3' => 'リハビリ',
+        '4' => '精神',
+        '5' => 'クリニック',
+        '6' => '老健',
+        '7' => '企業',
+        '8' => 'その他',
+    ],
+
+    // 救急対応
+    'emergency_support_yn' => [
+        'y' => 'あり',
+        'n' => 'なし',
+    ],
+
+    // 病棟数区分
+    'number_of_beds_types' => [
+        '1' => '0床',
+        '2' => '1～19床',
+        '3' => '20～99床',
+        '4' => '100～199床',
+        '5' => '200～299床',
+        '6' => '300床以上',
+        '7' => '老健1～99',
+        '8' => '老健100～199',
+    ],
+
+    // 移動手段
+    'transportation_types' => [
+        '1' => '徒歩',
+        '2' => '車',
+        '3' => 'タクシー',
+        '4' => 'バス',
+        '5' => '専用バス',
     ],
 ];
