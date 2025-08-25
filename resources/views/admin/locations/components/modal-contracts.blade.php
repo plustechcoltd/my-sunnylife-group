@@ -7,9 +7,9 @@
             </div>
             <div class="col-md-12 px-0 mt-3">
                 <div class="mo-btn_redirect px-4">
-                    <a target="_blank" href="{{route('admin.contracts.create')}}" type="button" class="btn btn-light btn-sm">
-                        契約状況を新規追加 <i class="ph-arrow-square-out ms-1 pb-1"></i>
-                    </a>
+{{--                    <a target="_blank" href="{{route('admin.contracts.create')}}" type="button" class="btn btn-light btn-sm">--}}
+{{--                        契約状況を新規追加 <i class="ph-arrow-square-out ms-1 pb-1"></i>--}}
+{{--                    </a>--}}
                 </div>
             </div>
             <div class="modal-body px-4">

@@ -87,7 +87,7 @@ class LocationController extends Controller
         $prefectures = Prefecture::all();
         $train_lines = TrainLine::all();
         $cities = [];
-        $contracts = Contract::all();
+        $contracts = [];
         $location = Location::getModel();
 
         $location->code = Location::withTrashed()->max('code') + 1;
