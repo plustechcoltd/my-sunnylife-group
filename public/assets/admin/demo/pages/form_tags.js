@@ -148,7 +148,7 @@ var TagInputs = function() {
             el: document.querySelector('.tokenfield-remote'),
             items: cars,
             remote: {
-                url: '../../../assets/demo/data/tags_input/car_brands.json'
+                url: '../../../assets/admin/demo/data/tags_input/car_brands.json'
             }
         });
 
@@ -156,7 +156,7 @@ var TagInputs = function() {
             el: document.querySelector('.tokenfield-remote-remap'),
             items: cars,
             remote: {
-                url: '../../../assets/demo/data/tags_input/car_brands.json',
+                url: '../../../assets/admin/demo/data/tags_input/car_brands.json',
                 headers: {
                     'foo': 'bar',
                     'hello': function() {

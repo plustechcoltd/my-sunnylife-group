@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class UserController extends Controller
 {
     /**
+     * Display the avatar image for the specified user.
+     *
+     * @param User $user
+     * @return BinaryFileResponse
      * @throws AuthorizationException
      */
     public function showAvatar(User $user): BinaryFileResponse

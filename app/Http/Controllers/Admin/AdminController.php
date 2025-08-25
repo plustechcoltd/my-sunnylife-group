@@ -29,6 +29,11 @@ class AdminController extends Controller
         $this->activityLogService = $activityLogService;
     }
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -52,6 +57,11 @@ class AdminController extends Controller
         return view('admin.admins.index');
     }
 
+    /**
+     * Show the form for creating a new admin.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $admin = new Admin();
@@ -63,6 +73,12 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created admin in storage.
+     *
+     * @param AdminRequest $request
+     * @return RedirectResponse
+     */
     public function store(AdminRequest $request): RedirectResponse
     {
         $admin = new Admin();
@@ -91,6 +107,12 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Show the form for editing the specified admin.
+     *
+     * @param Admin $admin
+     * @return \Illuminate\View\View|RedirectResponse
+     */
     public function edit(Admin $admin)
     {
         $user = Auth::user();
@@ -103,6 +125,12 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing permissions of the specified admin.
+     *
+     * @param Admin $admin
+     * @return \Illuminate\View\View|RedirectResponse
+     */
     public function editPermissions(Admin $admin)
     {
         $user = Auth::user();
@@ -118,6 +146,12 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing password of the specified admin.
+     *
+     * @param Admin $admin
+     * @return \Illuminate\View\View|RedirectResponse
+     */
     public function editPassword(Admin $admin)
     {
         $user = Auth::user();
@@ -130,6 +164,13 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified admin in storage.
+     *
+     * @param AdminRequest $request
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
     public function update(AdminRequest $request, Admin $admin)
     {
         FileHelper::processAvatarUpload($request, $admin, 'filesystems.paths.admin.avatar');
@@ -155,6 +196,13 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Update permissions for the specified admin.
+     *
+     * @param AdminPermissionsRequest $request
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
     public function updatePermissions(AdminPermissionsRequest $request, Admin $admin)
     {
         $admin->permissions()->sync($request->admin_permissions);
@@ -171,6 +219,13 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Update password for the specified admin.
+     *
+     * @param AdminPasswordRequest $request
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
     public function updatePassword(AdminPasswordRequest $request, Admin $admin)
     {
         $admin->update($request->only('password'));
@@ -187,6 +242,12 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Remove the specified admin from storage.
+     *
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
     public function destroy(Admin $admin): RedirectResponse
     {
         $user = Auth::user();

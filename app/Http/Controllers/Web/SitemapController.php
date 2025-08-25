@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 
 class SitemapController extends Controller
 {
+    /**
+     * Generate and serve the sitemap XML for web users.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $fe_url = env('APP_URL');

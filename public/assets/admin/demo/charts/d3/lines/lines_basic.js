@@ -109,7 +109,7 @@ var D3LineBasic = function() {
             // Load data
             // ------------------------------
 
-            d3.tsv("../../../assets/demo/data/d3/lines/lines_basic.tsv", function(error, data) {
+            d3.tsv("../../../assets/admin/demo/data/d3/lines/lines_basic.tsv", function(error, data) {
 
                 // Pull out values
                 data.forEach(function(d) {

@@ -30,6 +30,11 @@ class ChatController extends Controller
         $this->chatService = $chatService;
     }
 
+    /**
+     * Display the chat index or redirect to the latest chat room for the user.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
         $chatRoomId = $this->chatService->getLatestChatRoomId('users');
@@ -40,6 +45,12 @@ class ChatController extends Controller
         return redirect()->route('web.chats.show', ['chat' => $chatRoomId]);
     }
 
+    /**
+     * Show the chat room view for the user.
+     *
+     * @param ChatRoom $chat
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
     public function show(ChatRoom $chat): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
@@ -58,6 +69,13 @@ class ChatController extends Controller
         ]);
     }
 
+    /**
+     * Get chat messages for a chat room.
+     *
+     * @param ChatRoom $chat
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function messages(ChatRoom $chat, Request $request): JsonResponse
     {
         $messages = $chat->messages()
@@ -75,6 +93,11 @@ class ChatController extends Controller
     }
 
     /**
+     * Store a new chat message in the chat room.
+     *
+     * @param ChatRoom $chat
+     * @param ChatMessageRequest $request
+     * @return JsonResponse
      * @throws Exception
      */
     public function storeMessage(ChatRoom $chat, ChatMessageRequest $request): JsonResponse
@@ -86,6 +109,11 @@ class ChatController extends Controller
     }
 
     /**
+     * Mark a chat message as read.
+     *
+     * @param ChatRoom $chat
+     * @param Request $request
+     * @return JsonResponse
      * @throws Exception
      */
     public function markAsRead(ChatRoom $chat, Request $request): JsonResponse
@@ -99,6 +127,11 @@ class ChatController extends Controller
         return response()->json();
     }
 
+    /**
+     * Redirect the user to their support chat room.
+     *
+     * @return RedirectResponse
+     */
     public function support(): RedirectResponse
     {
         $user = Auth::user();
@@ -115,6 +148,13 @@ class ChatController extends Controller
         return redirect()->route('web.chats.show', ['chat' => $room->chat_room_id]);
     }
 
+    /**
+     * Upload a file and send it as a chat message.
+     *
+     * @param ChatRoom $chat
+     * @param ChatMessageFileRequest $request
+     * @return JsonResponse
+     */
     public function uploadFile(ChatRoom $chat, ChatMessageFileRequest $request)
     {
         $user = Auth::user();
@@ -123,6 +163,12 @@ class ChatController extends Controller
         return response()->json(['message' => 'File uploaded successfully', 'message_id' => $message->id]);
     }
 
+    /**
+     * Show the file associated with a chat message.
+     *
+     * @param ChatMessage $message
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function showFile(ChatMessage $message)
     {
         // TODO: verify if user has access to the file

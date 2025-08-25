@@ -36,6 +36,13 @@ class UserController extends Controller
     protected ActivityLogService $activityLogService;
     protected ChatService $chatService;
 
+    /**
+     * UserController constructor.
+     *
+     * @param DataTableService $dataTableService
+     * @param ActivityLogService $activityLogService
+     * @param ChatService $chatService
+     */
     public function __construct(DataTableService $dataTableService, ActivityLogService $activityLogService, ChatService $chatService)
     {
         $this->dataTableService = $dataTableService;
@@ -43,6 +50,12 @@ class UserController extends Controller
         $this->chatService = $chatService;
     }
 
+    /**
+     * Display a listing of the users.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -66,6 +79,10 @@ class UserController extends Controller
     }
 
     /**
+     * Show the avatar image for the specified user.
+     *
+     * @param User $user
+     * @return BinaryFileResponse
      * @throws AuthorizationException
      */
     public function showAvatar(User $user): BinaryFileResponse
@@ -83,6 +100,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for creating a new user.
+     *
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = new User();
@@ -92,6 +114,12 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created user in storage.
+     *
+     * @param UserRequest $request
+     * @return RedirectResponse
+     */
     public function store(UserRequest $request): RedirectResponse
     {
         $user = new User();
@@ -120,6 +148,12 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Show the form for editing the specified user.
+     *
+     * @param User $user
+     * @return View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+     */
     public function edit(User $user): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.users.edit', [
@@ -127,6 +161,12 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the password of the specified user.
+     *
+     * @param User $user
+     * @return View
+     */
     public function editPassword(User $user)
     {
         return view('admin.users.edit_password', [
@@ -134,6 +174,12 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the manager of the specified user.
+     *
+     * @param User $user
+     * @return View
+     */
     public function editManager(User $user)
     {
         $listAdmin = Admin::all()->pluck('full_name', 'id');
@@ -146,6 +192,13 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Update the manager of the specified user.
+     *
+     * @param User $user
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function updateAdminManager(User $user, Request $request)
     {
         $listManager = $request->input('user_id');
@@ -190,6 +243,14 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Update the specified user in storage.
+     *
+     * @param User $user
+     * @param ChatService $chatService
+     * @param UserRequest $request
+     * @return RedirectResponse
+     */
     public function update(User $user, ChatService $chatService, UserRequest $request): RedirectResponse
     {
         FileHelper::processAvatarUpload($request, $user, 'filesystems.paths.user.avatar');
@@ -254,6 +315,13 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Update the password of the specified user.
+     *
+     * @param User $user
+     * @param UserPasswordRequest $request
+     * @return RedirectResponse
+     */
     public function updatePassword(User $user, UserPasswordRequest $request): RedirectResponse
     {
         $user->fill($request->all());
@@ -271,6 +339,13 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Remove the specified user from storage.
+     *
+     * @param User $user
+     * @param ChatService $chatService
+     * @return RedirectResponse
+     */
     public function destroy(User $user, ChatService $chatService): RedirectResponse
     {
         // Find the chat room that the user is a member of
@@ -309,11 +384,22 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Show the form for importing users from a CSV file.
+     *
+     * @return View
+     */
     public function importCsv()
     {
         return view('admin.users.import');
     }
 
+    /**
+     * Upload and import users from a CSV file.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function uploadCsv(Request $request)
     {
         $request->validate([
@@ -343,6 +429,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Export the users to a CSV file.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function exportCsv()
     {
         $user = new User;

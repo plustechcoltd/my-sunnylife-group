@@ -126,7 +126,7 @@ var D3AreaStackedNest = function() {
             // Load data
             // ------------------------------
 
-            d3.csv("../../../assets/demo/data/d3/lines/lines_stacked_nest.csv", function(error, data) {
+            d3.csv("../../../assets/admin/demo/data/d3/lines/lines_stacked_nest.csv", function(error, data) {
 
                 // Pull out values
                 data.forEach(function(d) {

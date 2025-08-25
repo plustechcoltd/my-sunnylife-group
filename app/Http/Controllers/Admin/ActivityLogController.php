@@ -13,12 +13,24 @@ class ActivityLogController extends Controller
     protected DataTableService $dataTableService;
     protected ActivityLogService $activityLogService;
 
+    /**
+     * ActivityLogController constructor.
+     *
+     * @param DataTableService $dataTableService
+     * @param ActivityLogService $activityLogService
+     */
     public function __construct(DataTableService $dataTableService, ActivityLogService $activityLogService)
     {
         $this->dataTableService = $dataTableService;
         $this->activityLogService = $activityLogService;
     }
 
+    /**
+     * Display a listing of the activity logs.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {

@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DemoController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -39,6 +38,46 @@ Route::domain(config('app.admin_domain'))
 
             Route::middleware('auth:admin')->group(function () {
                 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+                // locations
+                Route::group(['middleware' => 'can:admin:locations'], function () {
+                    Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
+                    Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
+                    Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
+                    Route::get('/locations/{location}/edit', [LocationController::class, 'edit'])->name('locations.edit');
+                    Route::put('/locations/{location}', [LocationController::class, 'update'])->name('locations.update');
+                    Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->name('locations.destroy');
+                    Route::get('/locations/export_csv', [LocationController::class, 'exportCsv'])->name('locations.export_csv');
+                    Route::get('locations/import_csv', [LocationController::class, 'importCsv'])->name('locations.import_csv');
+                    Route::post('/locations/upload_csv', [LocationController::class, 'uploadCsv'])->name('locations.upload_csv');
+                });
+
+                // location_groups
+                Route::group(['middleware' => 'can:admin:location_groups'], function () {
+                    Route::get('/location_groups', [LocationGroupController::class, 'index'])->name('location_groups.index');
+                    Route::get('/location_groups/create', [LocationGroupController::class, 'create'])->name('location_groups.create');
+                    Route::post('/location_groups', [LocationGroupController::class, 'store'])->name('location_groups.store');
+                    Route::get('/location_groups/{location_group}/edit', [LocationGroupController::class, 'edit'])->name('location_groups.edit');
+                    Route::put('/location_groups/{location_group}', [LocationGroupController::class, 'update'])->name('location_groups.update');
+                    Route::delete('/location_groups/{location_group}', [LocationGroupController::class, 'destroy'])->name('location_groups.destroy');
+                });
+
+                // cities
+                Route::group(['middleware' => 'can:admin:cities'], function () {
+                    Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
+                    Route::get('/cities/{city}/edit', [CityController::class, 'edit'])->name('cities.edit');
+                    Route::put('/cities/{city}', [CityController::class, 'update'])->name('cities.update');
+                });
+
+                // city_groups
+                Route::group(['middleware' => 'can:admin:city_groups'], function () {
+                    Route::get('/city_groups', [CityGroupController::class, 'index'])->name('city_groups.index');
+                    Route::get('/city_groups/create', [CityGroupController::class, 'create'])->name('city_groups.create');
+                    Route::post('/city_groups', [CityGroupController::class, 'store'])->name('city_groups.store');
+                    Route::get('/city_groups/{city_group}/edit', [CityGroupController::class, 'edit'])->name('city_groups.edit');
+                    Route::put('/city_groups/{city_group}', [CityGroupController::class, 'update'])->name('city_groups.update');
+                    Route::delete('/city_groups/{city_group}', [CityGroupController::class, 'destroy'])->name('city_groups.destroy');
+                });
 
                 // users
                 Route::group(['middleware' => 'can:admin:users'], function () {
@@ -114,8 +153,6 @@ Route::domain(config('app.admin_domain'))
                     Route::delete('/languages/{language}', [LanguageController::class, 'destroy'])->name('languages.destroy');
                 });
 
-                // Limitless Demo
-                Route::get('{any}', [DemoController::class, 'index'])->name('demo.index');
             });
 
             Route::get('/admins/{admin}/avatar', [AdminController::class, 'showAvatar'])->name('admins.show_avatar');

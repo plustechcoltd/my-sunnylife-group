@@ -16,7 +16,8 @@ return [
 
     // menus
     'menus' => [
-        'home' => 'ホーム',
+        'navigation' => 'ナビゲーション',
+        'dashboard' => 'ダッシュボード',
         'activity_logs' => 'アクティビティログ',
         'users' => 'ユーザー',
         'create_user' => 'ユーザーを作成',

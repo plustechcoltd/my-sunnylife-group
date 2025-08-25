@@ -11,11 +11,22 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
+    /**
+     * Display the contact page.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('web.contact.index');
     }
 
+    /**
+     * Store a new contact form submission.
+     *
+     * @param ContactRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(ContactRequest $request)
     {
         $contact = new Contact();
@@ -47,8 +58,6 @@ class ContactController extends Controller
         } catch (Exception $e) {
             Log::error($e);
         }
-
-        
 
         return back()->with('success', __('flash_message.success.create', ['id' => $contact->id, 'name' => $contact->title]));
     }

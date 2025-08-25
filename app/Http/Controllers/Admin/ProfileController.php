@@ -21,11 +21,22 @@ class ProfileController extends Controller
 {
     protected ActivityLogService $activityLogService;
 
+    /**
+     * ProfileController constructor.
+     *
+     * @param ActivityLogService $activityLogService
+     */
     public function __construct(ActivityLogService $activityLogService)
     {
         $this->activityLogService = $activityLogService;
     }
 
+    /**
+     * Show the form for editing the admin profile.
+     *
+     * @param Request $request
+     * @return View
+     */
     public function edit(Request $request): View
     {
         return view('admin.profile.edit', [
@@ -33,6 +44,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing admin profile permissions.
+     *
+     * @param Request $request
+     * @return View
+     */
     public function editPermissions(Request $request): View
     {
         $permissions = AdminPermission::all();
@@ -43,6 +60,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing admin profile password.
+     *
+     * @param Request $request
+     * @return View
+     */
     public function editPassword(Request $request): View
     {
         return view('admin.profile.edit_password', [
@@ -50,6 +73,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * Update the admin profile.
+     *
+     * @param ProfileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(ProfileRequest $request)
     {
         $admin = Auth::user();
@@ -75,6 +104,12 @@ class ProfileController extends Controller
         );
     }
 
+    /**
+     * Update the admin profile permissions.
+     *
+     * @param ProfilePermissionsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePermissions(ProfilePermissionsRequest $request)
     {
         $admin = Auth::user();
@@ -93,6 +128,12 @@ class ProfileController extends Controller
         );
     }
 
+    /**
+     * Update the admin profile password.
+     *
+     * @param ProfilePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePassword(ProfilePasswordRequest $request)
     {
         $admin = Auth::user();
