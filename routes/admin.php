@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
@@ -40,7 +41,7 @@ Route::domain(config('app.admin_domain'))
                 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
                 // locations
-                Route::group(['middleware' => 'can:admin:locations'], function () {
+                Route::group(['middleware' => 'can:admin:institutions'], function () {
                     Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
                     Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
                     Route::post('/locations', [LocationController::class, 'store'])->name('locations.store');
